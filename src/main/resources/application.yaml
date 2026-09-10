@@ -1,6 +1,18 @@
 spring:
   application:
     name: template
+
+  threads:
+    virtual:
+      enabled: true
+
+  task:
+    execution:
+      thread-name-prefix: "template-platform-async-"
+      pool:
+        core-size: 8         # Bằng số nhân CPU (đối với CPU-bound tasks)
+        max-size: 16         # Tối đa 2x core-size để tránh lãng phí RAM/CPU Context Switch
+        queue-capacity: 500  # Hàng đợi đủ lớn để chịu tải spike ngắn hạn
   
   jackson:
     # property-naming-strategy: SNAKE_CASE

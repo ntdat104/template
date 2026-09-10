@@ -1,0 +1,18 @@
+{
+  "name": "template",
+  "version": "1.0.0",
+  "description": "template",
+  "license": "UNLICENSED",
+  "author": "ntdat104",
+  "type": "module",
+  "scripts": {
+    "prettier:check": "prettier --check \"{,.blueprint/**/,src/**/}*.{md,json,yml,js,cjs,mjs,ts,cts,mts,java}\"",
+    "prettier:format": "prettier --write \"{,.blueprint/**/,src/**/}*.{md,json,yml,js,cjs,mjs,ts,cts,mts,java}\"",
+    "start": "./mvnw spring-boot:run"
+  },
+  "devDependencies": {
+    "prettier": "3.9.6",
+    "prettier-plugin-java": "2.10.3",
+    "prettier-plugin-packagejson": "3.0.2"
+  }
+}

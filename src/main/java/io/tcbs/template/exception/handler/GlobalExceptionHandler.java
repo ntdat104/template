@@ -14,8 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @Slf4j
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -38,6 +41,30 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(BaseResponse.failed(errorCode, message), resolveHttpStatus(errorCode));
     }
 
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<BaseResponse<?>> handleNoResourceFoundException(NoResourceFoundException ex) {
+        var args = new Object[] { ex.getResourcePath() };
+        var errorCode = ErrorCode.NOT_FOUND;
+        String message = resolveMessage(errorCode, args);
+        return new ResponseEntity<>(BaseResponse.failed(errorCode, message), resolveHttpStatus(errorCode));
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<BaseResponse<?>> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+        var args = new Object[] { ex.getName() };
+        var errorCode = ErrorCode.INVALID_PATH_VARIABLE;
+        String message = resolveMessage(errorCode, args);
+        return new ResponseEntity<>(BaseResponse.failed(errorCode, message), resolveHttpStatus(errorCode));
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<BaseResponse<?>> handleMissingServletRequestParameterException(MissingServletRequestParameterException ex) {
+        var args = new Object[] { ex.getParameterName() };
+        var errorCode = ErrorCode.MISSING_REQUEST_PARAM;
+        String message = resolveMessage(errorCode, args);
+        return new ResponseEntity<>(BaseResponse.failed(errorCode, message), resolveHttpStatus(errorCode));
+    }
+
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<BaseResponse<?>> handleBusinessException(BusinessException ex) {
         var errorCode = ex.getErrorCode();
@@ -47,7 +74,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<BaseResponse<?>> handleGeneric(Exception ex) {
-        return new ResponseEntity<>(BaseResponse.failed(ErrorCode.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        log.error("Có lỗi xảy ra: {}", ex.getMessage());
+        return new ResponseEntity<>(
+            BaseResponse.failed(ErrorCode.INTERNAL_SERVER_ERROR, ex.getMessage()),
+            HttpStatus.INTERNAL_SERVER_ERROR
+        );
     }
 
     private HttpStatus resolveHttpStatus(ErrorCode errorCode) {

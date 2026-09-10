@@ -6,6 +6,9 @@ GET {{host}}/actuator/health
 ### Test
 GET {{host}}/api/v1/test
 
+### Test
+GET {{host}}/api/v1/test/abc
+
 ### 1) Tach chung thu DS tu SOD hop le -> 200
 # @name parse
 POST {{host}}/sod/parse
@@ -14,3 +17,16 @@ Content-Type: application/json
 {
   "sod": "{{}}"
 }
+
+### Test virtual thread
+GET {{host}}/api/v1/thread1
+Accept-Language: vi
+
+### Test virtual thread
+GET {{host}}/api/v1/thread/virtual
+
+### Test platform thread
+GET {{host}}/api/v1/thread/platform
+
+### Test
+GET {{host}}/api/v1/test/request-param
