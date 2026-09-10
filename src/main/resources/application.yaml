@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: template
+  
+  jackson:
+    # property-naming-strategy: SNAKE_CASE
+    default-property-inclusion: non_null
+    mapper:
+      sort-properties-alphabetically: false
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/template
+    username: postgres
+    password: postgres_password
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 20000
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update # Chọn: update (dev) hoặc validate/none (prod)
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+
+# Monitoring & Health Check via Spring Boot Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:-},%X{X-Request-ID:-}]"

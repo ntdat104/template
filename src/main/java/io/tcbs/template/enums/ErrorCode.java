@@ -1,0 +1,115 @@
+package io.tcbs.template.enums;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import lombok.Getter;
+
+@Getter
+public enum ErrorCode {
+    // 200 - OK
+    SUCCESS(2000000),
+
+    // 400 - BAD_REQUEST
+    FULL_NAME_REQUIRED(4000001),
+    FULL_NAME_TOO_LONG(4000002),
+    IS_MALE_REQUIRED(4000003),
+    EMAIL_REQUIRED(4000004),
+    INVALID_EMAIL_FORMAT(4000005),
+    PHONE_NUMBER_REQUIRED(4000006),
+    INVALID_PHONE_NUMBER_FORMAT(4000007),
+    IMAGE_URL_TOO_LONG(4000008),
+    ID_REQUIRED(4000009),
+    INVALID_PARAMETERS(4000010),
+
+    WORKFLOW_TENANT_CODE_REQUIRED(4000011),
+    WORKFLOW_NAME_REQUIRED(4000012),
+    WORKFLOW_NAME_TOO_LONG(4000013),
+    WORKFLOW_VERSION_REQUIRED(4000014),
+    WORKFLOW_VERSION_INVALID(4000015),
+    WORKFLOW_STATUS_INVALID(4000016),
+    WORKFLOW_DEFINITION_REQUIRED(4000017),
+    WORKFLOW_ALREADY_EXISTS(4000018),
+    WORKFLOW_DEFINITION_INVALID(4000019),
+    WORKFLOW_START_NODE_REQUIRED(4000020),
+    WORKFLOW_NODES_REQUIRED(4000021),
+    WORKFLOW_EDGES_REQUIRED(4000022),
+    WORKFLOW_NODE_ID_REQUIRED(4000023),
+    WORKFLOW_NODE_TYPE_REQUIRED(4000024),
+    WORKFLOW_EDGE_FROM_REQUIRED(4000025),
+    WORKFLOW_EDGE_TO_REQUIRED(4000026),
+    SESSION_NOT_IN_PROGRESS(4000027),
+    SESSION_NODE_NOT_ACTIVE(4000028),
+    SESSION_INVALID_CHANNEL(4000031),
+    WORKFLOW_CANNOT_EDIT_DEPRECATED(4000033),
+    WORKFLOW_CANNOT_CHANGE_STATUS_DEPRECATED(4000034),
+    WORKFLOW_INVALID_STATUS_TRANSITION(4000035),
+    FILE_REQUIRED(4000036),
+    FILE_TOO_LARGE(4000037),
+    FILE_NOT_AN_IMAGE(4000038),
+    FILE_NUMBER_TOO_MUCH(4000039),
+    SESSION_NODE_ID_REQUIRED(4000040),
+    WORKFLOW_NOT_ACTIVE(4000041),
+    INPUT_VALIDATION_FAILED(4000042),
+    IMAGE_UPLOAD_FAILED(4000043),
+
+    // 401 - UNAUTHORIZED
+    UNAUTHORIZED(4010001),
+
+    // 403 - FORBIDDEN
+    FORBIDDEN(4030001),
+
+    // 404 - NOT_FOUND
+    NOT_FOUND(4040001),
+    LIMIT_CONFIG_NOT_FOUND(4040002),
+    TRANSACTION_NOT_FOUND(4040003),
+    WORKFLOW_NOT_FOUND(4040004),
+    SESSION_NOT_FOUND(4040005),
+
+    // 405 - METHOD_NOT_ALLOWED
+    METHOD_NOT_ALLOWED(4050001),
+
+    // 409 - CONFLICT
+    RESOURCE_LOCKED(4090001),
+    SESSION_STEP_IN_PROGRESS(4090002),
+
+    EXTERNAL_SERVICE_ERROR(5020001),
+    HTTP_CONNECTION_ERROR(5030001),
+    // 500 - INTERNAL_SERVER_ERROR
+    INTERNAL_SERVER_ERROR(5000001),
+    WORKFLOW_DEFINITION_SERIALIZE_FAILED(5000002),
+    WORKFLOW_DEFINITION_DESERIALIZE_FAILED(5000003),
+    WORKFLOW_PARALLEL_JOIN_CONFIG_INVALID(5000004),
+    WORKFLOW_NO_MATCHING_EDGE(5000005),
+    WORKFLOW_NO_VIABLE_FALLBACK(5000006),
+    REQUEST_ATTR_TYPE_MISMATCH(5000007),
+    OBJECT_STORAGE_UPLOAD_FAILED(5000008);
+
+    private final int code;
+
+    ErrorCode(int code) {
+        this.code = code;
+    }
+
+    // Cache để check duplicate code và lookup nhanh
+    private static final Map<Integer, ErrorCode> CACHE;
+
+    static {
+        CACHE = Arrays.stream(values()).collect(
+            Collectors.toMap(ErrorCode::getCode, Function.identity(), (existing, replacement) -> {
+                throw new IllegalStateException(
+                    "Duplicate ErrorCode detected: %d (Enums: %s, %s)".formatted(existing.getCode(), existing.name(), replacement.name())
+                );
+            })
+        );
+    }
+
+    public static ErrorCode findByCode(int code, ErrorCode defaultValue) {
+        return CACHE.getOrDefault(code, defaultValue);
+    }
+
+    public static ErrorCode findByCode(int code) {
+        return CACHE.get(code);
+    }
+}

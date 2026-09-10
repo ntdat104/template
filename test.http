@@ -1,0 +1,16 @@
+@host = http://localhost:8080
+
+### GET
+GET {{host}}/actuator/health
+
+### Test
+GET {{host}}/api/v1/test
+
+### 1) Tach chung thu DS tu SOD hop le -> 200
+# @name parse
+POST {{host}}/sod/parse
+Content-Type: application/json
+
+{
+  "sod": "{{}}"
+}
