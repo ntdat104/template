@@ -12,4 +12,9 @@ public class UrlExternal {
     public static final String TEST_V2_PATH = "/api/v2/test";
     public static final String TEST_PATH_VARIABLE = "/api/v1/test/{id}";
     public static final String TEST_REQUEST_PARAM = "/api/v1/test/request-param";
+
+    public static final String TEST_CAFFEIN_CACHE_PUT = "/api/v1/caffein/put";
+    public static final String TEST_CAFFEIN_CACHE_GET_IF_PRESENT = "/api/v1/caffein/get-if-present";
+    public static final String TEST_CAFFEIN_CACHE_GET = "/api/v1/caffein/get";
+    public static final String TEST_CAFFEIN_CACHE_INVALIDATE = "/api/v1/caffein/invalidate";
 }

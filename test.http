@@ -30,3 +30,16 @@ GET {{host}}/api/v1/thread/platform
 
 ### Test
 GET {{host}}/api/v1/test/request-param
+
+### Test
+GET {{host}}/api/v1/caffein/put
+
+### Test
+GET {{host}}/api/v1/caffein/get-if-present
+
+### Test
+GET {{host}}/api/v1/caffein/get
+
+### Test
+GET {{host}}/api/v1/caffein/invalidate
+
