@@ -8,7 +8,17 @@ bracketSameLine: false
 plugins:
   - prettier-plugin-packagejson
   - prettier-plugin-java
+  - "@prettier/plugin-xml"
 overrides:
   - files: "*.java"
     options:
+      tabWidth: 4
+  - files: "*.xml"
+    options:
+      xmlWhitespaceSensitivity: ignore
+      xmlQuoteAttributes: double
+      singleAttributePerLine: false
+      # printWidth rộng: khi text node bị wrap, plugin chèn newline + indent vào
+      # chính giá trị đó -> hỏng path/URL mà Maven đọc. Để rộng thì không bao giờ wrap.
+      printWidth: 400
       tabWidth: 4

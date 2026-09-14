@@ -1,0 +1,30 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no" ?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+>
+    <changeSet author="tiendat (generated)" id="1789356628756-1">
+        <createTable tableName="system_configuration">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="system_configurationPK" />
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_date" type="TIMESTAMP(6) WITH TIME ZONE" />
+            <column name="last_modified_by" type="VARCHAR(50)" />
+            <column name="last_modified_date" type="TIMESTAMP(6) WITH TIME ZONE" />
+            <column name="code" type="VARCHAR(255)" />
+            <column name="name" type="VARCHAR(255)" />
+            <column name="value" type="TEXT" />
+        </createTable>
+    </changeSet>
+    <changeSet author="tiendat (generated)" id="1789356628756-2">
+        <addUniqueConstraint columnNames="code" constraintName="UC_SYSTEM_CONFIGURATIONCODE_COL" tableName="system_configuration" />
+    </changeSet>
+    <changeSet author="tiendat (generated)" id="1789356628756-3">
+        <dropSequence sequenceName="sequence_generator" />
+    </changeSet>
+</databaseChangeLog>
