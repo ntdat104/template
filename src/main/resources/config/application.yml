@@ -49,6 +49,8 @@ management:
       show-details: always
 
 logging:
+  level:
+    io.tcbs.template.client: DEBUG
   pattern:
     level: '%5p [${spring.application.name:-},%X{X-Request-ID:-}]'
 
