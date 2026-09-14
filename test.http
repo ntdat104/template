@@ -45,3 +45,13 @@ GET {{host}}/api/v1/caffein/invalidate
 
 ### Test
 GET {{host}}/api/v1/randomuser/generate
+
+### Test
+POST {{host}}/api/v1/system/config
+Content-Type: application/json
+
+{}
+
+### Test
+GET {{host}}/api/v1/system/config
+Accept-Language: vi

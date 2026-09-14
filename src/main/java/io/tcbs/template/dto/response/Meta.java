@@ -3,13 +3,16 @@ package io.tcbs.template.dto.response;
 import io.tcbs.template.constants.Constant;
 import io.tcbs.template.enums.ErrorCode;
 import io.tcbs.template.util.ContextUtil;
+import io.tcbs.template.util.DatetimeUtil;
 import io.tcbs.template.util.MessagesUtil;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Getter
 @Setter
 @NoArgsConstructor
@@ -29,12 +32,12 @@ public class Meta {
     private List<ErrorViolation> errors;
 
     private static Meta base() {
-        ZonedDateTime now = ZonedDateTime.now(Constant.ZONE_ID);
-        Meta meta = new Meta();
+        var now = Instant.now();
+        var meta = new Meta();
         meta.setServiceCode(Constant.SERVICE_CODE);
         meta.setRequestId(ContextUtil.getRequestId());
-        meta.setTimestamp(now.toInstant().toEpochMilli());
-        meta.setDatetime(now.format(Constant.DATE_TIME_FORMATTER));
+        meta.setTimestamp(DatetimeUtil.toEpochMilli(now));
+        meta.setDatetime(DatetimeUtil.format(now));
         return meta;
     }
 

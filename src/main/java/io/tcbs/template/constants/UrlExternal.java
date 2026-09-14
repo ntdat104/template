@@ -19,4 +19,6 @@ public class UrlExternal {
     public static final String TEST_CAFFEIN_CACHE_INVALIDATE = "/api/v1/caffein/invalidate";
 
     public static final String TEST_RANDOMUSER_GENERATE = "/api/v1/randomuser/generate";
+
+    public static final String TEST_SYSTEM_CONFIG_PATH = "/api/v1/system/config";
 }

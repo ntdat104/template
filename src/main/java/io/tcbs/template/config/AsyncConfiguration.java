@@ -28,7 +28,7 @@ public class AsyncConfiguration implements AsyncConfigurer {
     @Override
     @Bean(name = "taskExecutor")
     public Executor getAsyncExecutor() {
-        log.info("Creating VirtualThreadTaskExecutor for default async operations");
+        log.debug("Creating VirtualThreadTaskExecutor for default async operations");
         return Executors.newVirtualThreadPerTaskExecutor();
     }
 
@@ -39,7 +39,7 @@ public class AsyncConfiguration implements AsyncConfigurer {
 
     @Bean(name = "platformThreadExecutor")
     public Executor platformThreadExecutor() {
-        log.info("Creating Platform ThreadPoolTaskExecutor");
+        log.debug("Creating Platform ThreadPoolTaskExecutor");
         var executor = new ThreadPoolTaskExecutor();
         var pool = taskExecutionProperties.getPool();
         executor.setCorePoolSize(pool.getCoreSize());
