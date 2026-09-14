@@ -43,3 +43,5 @@ GET {{host}}/api/v1/caffein/get
 ### Test
 GET {{host}}/api/v1/caffein/invalidate
 
+### Test
+GET {{host}}/api/v1/randomuser/generate

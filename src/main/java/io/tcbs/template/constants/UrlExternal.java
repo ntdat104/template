@@ -17,4 +17,6 @@ public class UrlExternal {
     public static final String TEST_CAFFEIN_CACHE_GET_IF_PRESENT = "/api/v1/caffein/get-if-present";
     public static final String TEST_CAFFEIN_CACHE_GET = "/api/v1/caffein/get";
     public static final String TEST_CAFFEIN_CACHE_INVALIDATE = "/api/v1/caffein/invalidate";
+
+    public static final String TEST_RANDOMUSER_GENERATE = "/api/v1/randomuser/generate";
 }
