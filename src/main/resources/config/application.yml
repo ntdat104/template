@@ -1,3 +1,12 @@
+server:
+  port: 8080
+  forward-headers-strategy: native
+  shutdown: graceful # see https://docs.spring.io/spring-boot/reference/web/graceful-shutdown.html#web.graceful-shutdown
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,application/javascript,application/json,image/svg+xml
+    min-response-size: 1024
+
 spring:
   # application:
   #   name: ${APP_NAME:template}
@@ -27,8 +36,8 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:template}
-    username: ${DB_USER:user}
-    password: ${DB_PASSWORD:pass}
+    username: ${DB_USER:admin}
+    password: ${DB_PASSWORD:admin}
     hikari:
       poolName: Hikari
       auto-commit: false
