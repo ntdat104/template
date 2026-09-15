@@ -6,6 +6,10 @@
   "author": "ntdat104",
   "type": "module",
   "scripts": {
+    "build": "./mvnw clean install -DskipTests",
+    "build:verify": "./mvnw clean install",
+    "docker:down": "docker compose down -v",
+    "docker:up": "npm run build && docker compose up -d --build",
     "liquibase": "./mvnw liquibase:diff",
     "prettier:check": "prettier --check \"{,.blueprint/**/,src/**/}*.{md,json,yml,js,cjs,mjs,ts,cts,mts,java,xml}\"",
     "prettier:format": "prettier --write \"{,.blueprint/**/,src/**/}*.{md,json,yml,js,cjs,mjs,ts,cts,mts,java,xml}\"",
