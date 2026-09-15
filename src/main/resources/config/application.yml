@@ -51,6 +51,19 @@ spring:
     change-log: classpath:config/liquibase/master.xml
     enabled: true
 
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000 # Thời gian hết hạn cache mặc định (tính bằng ms, ví dụ: 600000ms = 10 phút)
+      cache-null-values: false # Không lưu giá trị null vào cache
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:} # Điền password nếu Redis server có bật auth
+      timeout: 2000ms
+
 # Monitoring & Health Check via Spring Boot Actuator
 management:
   endpoints:

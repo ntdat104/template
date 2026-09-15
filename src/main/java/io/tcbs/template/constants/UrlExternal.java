@@ -21,4 +21,6 @@ public class UrlExternal {
     public static final String TEST_RANDOMUSER_GENERATE = "/api/v1/randomuser/generate";
 
     public static final String TEST_SYSTEM_CONFIG_PATH = "/api/v1/system/config";
+
+    public static final String TEST_REDIS_PATH = "/api/v1/redis/{id}";
 }

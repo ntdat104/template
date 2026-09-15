@@ -55,3 +55,9 @@ Content-Type: application/json
 ### Test
 GET {{host}}/api/v1/system/config
 Accept-Language: vi
+
+### Test
+GET {{host}}/api/v1/redis/uuid123
+
+### Test
+DELETE {{host}}/api/v1/redis/uuid123

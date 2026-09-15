@@ -94,25 +94,20 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
+        <!-- Redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
         <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webmvc-test</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -243,8 +238,8 @@
             <properties>
                 <!-- Khớp với docker-compose.yml -->
                 <liquibase-plugin.url>jdbc:postgresql://localhost:5432/template</liquibase-plugin.url>
-                <liquibase-plugin.username>postgres</liquibase-plugin.username>
-                <liquibase-plugin.password>postgres_password</liquibase-plugin.password>
+                <liquibase-plugin.username>admin</liquibase-plugin.username>
+                <liquibase-plugin.password>admin</liquibase-plugin.password>
             </properties>
         </profile>
         <profile>
