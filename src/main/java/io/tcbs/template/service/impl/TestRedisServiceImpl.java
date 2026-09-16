@@ -1,7 +1,7 @@
 package io.tcbs.template.service.impl;
 
 import io.tcbs.template.service.RedisService;
-import io.tcbs.template.service.UserService;
+import io.tcbs.template.service.TestRedisService;
 import java.time.Duration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class TestRedisServiceImpl implements TestRedisService {
 
     private static final String USER_KEY_PREFIX = "users:";
     private static final Duration USER_TTL = Duration.ofMinutes(10);

@@ -29,6 +29,9 @@
 
         <!-- spring cloud -->
         <spring-cloud-dependencies.version>2025.1.3</spring-cloud-dependencies.version>
+
+        <!-- redis -->
+        <redisson.version>4.7.0</redisson.version>
     </properties>
 
     <dependencyManagement>
@@ -102,6 +105,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>${redisson.version}</version>
         </dependency>
 
         <!-- Kafka -->

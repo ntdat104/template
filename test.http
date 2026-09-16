@@ -64,3 +64,50 @@ DELETE {{host}}/api/v1/redis/uuid123
 
 ### Test
 GET {{host}}/api/v1/redis/demo
+
+###############################################
+# Semaphore (JVM) - SemaphoreTemplate: 3 permit, fair
+###############################################
+
+### Local semaphore - blocking (mỗi request giữ permit ~2s)
+GET {{host}}/api/v1/semaphore/local/ORDER-001
+
+### Local semaphore - timeout 500ms + fallback
+GET {{host}}/api/v1/semaphore/local/fallback/ORDER-002
+
+### Local semaphore - callback void (gửi notification)
+GET {{host}}/api/v1/semaphore/local/notify/USER-001
+
+### Local semaphore - bắn 6 request đồng thời vào 3 permit
+# Kỳ vọng: 3 task ACQUIRED, 3 task FALLBACK (timeout 500ms < hold 1000ms)
+GET {{host}}/api/v1/semaphore/local/burst?concurrency=6&holdMillis=1000&timeoutMillis=500
+
+### Local semaphore - 6 request đồng thời nhưng chờ đủ lâu
+# Kỳ vọng: cả 6 task ACQUIRED, chia thành 2 lượt nên totalMillis ~2000ms
+GET {{host}}/api/v1/semaphore/local/burst?concurrency=6&holdMillis=1000&timeoutMillis=5000
+
+###############################################
+# Distributed Semaphore (Redis/Redisson)
+###############################################
+
+### Distributed semaphore - đặt lệnh (key semaphore:trade-order-limit, 10 permit)
+GET {{host}}/api/v1/semaphore/distributed/ORDER-100
+
+### Distributed semaphore - bắn 6 request đồng thời vào 3 permit trên Redis
+# Lưu ý: trySetPermits chỉ có tác dụng lần đầu tiên key được tạo trên Redis,
+# muốn đổi `permits` thì dùng key mới hoặc xoá key cũ trên Redis trước.
+# Kỳ vọng: 3 task ACQUIRED, 3 task FALLBACK
+GET {{host}}/api/v1/semaphore/distributed/burst?key=semaphore:test-burst&permits=3&concurrency=6&holdMillis=1000&timeoutMillis=500
+
+### Distributed semaphore - 6 request đồng thời, chờ đủ lâu nên không ai bị loại
+GET {{host}}/api/v1/semaphore/distributed/burst?key=semaphore:test-burst&permits=3&concurrency=6&holdMillis=1000&timeoutMillis=5000
+
+### Distributed semaphore - dùng key khác để test độc lập giữa các tài nguyên
+GET {{host}}/api/v1/semaphore/distributed/burst?key=semaphore:test-other&permits=1&concurrency=4&holdMillis=500&timeoutMillis=300
+
+### Distributed semaphore - blocking, chờ vô thời hạn (key semaphore:trade-order-blocking, 5 permit)
+GET {{host}}/api/v1/semaphore/distributed/blocking/ORDER-200
+
+### Distributed semaphore - blocking burst: 6 request đồng thời vào 2 permit
+# Kỳ vọng: cả 6 task đều ACQUIRED (không có fallback), chia 3 lượt nên totalMillis ~1500ms
+GET {{host}}/api/v1/semaphore/distributed/blocking/burst?key=semaphore:test-blocking-burst&permits=2&concurrency=6&holdMillis=500

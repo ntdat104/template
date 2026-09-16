@@ -25,4 +25,14 @@ public class UrlExternal {
     public static final String TEST_REDIS_PATH = "/api/v1/redis/{id}";
     public static final String TEST_REDIS_MANUAL_PATH = "/api/v1/redis/manual/{id}";
     public static final String TEST_REDIS_DEMO_PATH = "/api/v1/redis/demo";
+
+    public static final String TEST_SEMAPHORE_LOCAL_PATH = "/api/v1/semaphore/local/{orderId}";
+    public static final String TEST_SEMAPHORE_LOCAL_FALLBACK_PATH = "/api/v1/semaphore/local/fallback/{orderId}";
+    public static final String TEST_SEMAPHORE_LOCAL_NOTIFY_PATH = "/api/v1/semaphore/local/notify/{userId}";
+    public static final String TEST_SEMAPHORE_LOCAL_BURST_PATH = "/api/v1/semaphore/local/burst";
+
+    public static final String TEST_SEMAPHORE_DISTRIBUTED_PATH = "/api/v1/semaphore/distributed/{orderId}";
+    public static final String TEST_SEMAPHORE_DISTRIBUTED_BURST_PATH = "/api/v1/semaphore/distributed/burst";
+    public static final String TEST_SEMAPHORE_DISTRIBUTED_BLOCKING_PATH = "/api/v1/semaphore/distributed/blocking/{orderId}";
+    public static final String TEST_SEMAPHORE_DISTRIBUTED_BLOCKING_BURST_PATH = "/api/v1/semaphore/distributed/blocking/burst";
 }
