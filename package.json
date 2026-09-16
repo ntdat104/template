@@ -10,9 +10,13 @@
     "build:verify": "./mvnw clean install",
     "docker:down": "docker compose down -v",
     "docker:up": "npm run build && docker compose up -d --build",
+    "format": "npm run spotless:apply && npm run prettier:format",
+    "format:check": "npm run spotless:check && npm run prettier:check",
     "liquibase": "./mvnw liquibase:diff",
     "prettier:check": "prettier --check \"{,.blueprint/**/,src/**/}*.{md,json,yml,js,cjs,mjs,ts,cts,mts,java,xml}\"",
     "prettier:format": "prettier --write \"{,.blueprint/**/,src/**/}*.{md,json,yml,js,cjs,mjs,ts,cts,mts,java,xml}\"",
+    "spotless:apply": "./mvnw -q spotless:apply",
+    "spotless:check": "./mvnw -q spotless:check",
     "start": "./mvnw spring-boot:run -Dspring-boot.run.profiles=dev"
   },
   "devDependencies": {
