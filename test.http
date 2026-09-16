@@ -61,3 +61,6 @@ GET {{host}}/api/v1/redis/uuid123
 
 ### Test
 DELETE {{host}}/api/v1/redis/uuid123
+
+### Test
+GET {{host}}/api/v1/redis/demo

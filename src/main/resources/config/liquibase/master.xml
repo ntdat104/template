@@ -13,4 +13,5 @@
 
     <!-- Thêm changelog mới vào đây, theo đúng thứ tự thời gian (yyyyMMddHHmmss>_<mô_tả>.xml) -->
     <include file="config/liquibase/changelog/20260914033019_changelog.xml" relativeToChangelogFile="false" />
+    <include file="config/liquibase/changelog/20260916084448_changelog.xml" relativeToChangelogFile="false" />
 </databaseChangeLog>

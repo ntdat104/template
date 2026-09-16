@@ -23,4 +23,6 @@ public class UrlExternal {
     public static final String TEST_SYSTEM_CONFIG_PATH = "/api/v1/system/config";
 
     public static final String TEST_REDIS_PATH = "/api/v1/redis/{id}";
+    public static final String TEST_REDIS_MANUAL_PATH = "/api/v1/redis/manual/{id}";
+    public static final String TEST_REDIS_DEMO_PATH = "/api/v1/redis/demo";
 }

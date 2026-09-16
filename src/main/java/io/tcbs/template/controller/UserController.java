@@ -24,6 +24,22 @@ public class UserController {
         return BaseResponse.success(response);
     }
 
+    @GetMapping(UrlExternal.TEST_REDIS_MANUAL_PATH)
+    public BaseResponse<?> getUserFromRedis(@PathVariable("id") String id) {
+        long start = System.currentTimeMillis();
+        String result = userService.getUserByIdFromRedis(id);
+        long duration = System.currentTimeMillis() - start;
+        var response = result + " (Thời gian xử lý: " + duration + " ms)";
+        return BaseResponse.success(response);
+    }
+
+    @DeleteMapping(UrlExternal.TEST_REDIS_MANUAL_PATH)
+    public BaseResponse<?> evictUserFromRedis(@PathVariable("id") String id) {
+        userService.evictUserFromRedis(id);
+        var response = "Đã xóa key redis cho userId: " + id;
+        return BaseResponse.success(response);
+    }
+
     @DeleteMapping(UrlExternal.TEST_REDIS_PATH)
     public BaseResponse<?> evictUser(@PathVariable("id") String id) {
         userService.updateUser(id, "Updated Name");

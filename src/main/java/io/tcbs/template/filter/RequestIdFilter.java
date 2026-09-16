@@ -1,12 +1,12 @@
 package io.tcbs.template.filter;
 
 import io.tcbs.template.constants.RequestKey;
+import io.tcbs.template.util.UuidGeneratorUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.UUID;
 import org.slf4j.MDC;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ public class RequestIdFilter extends OncePerRequestFilter {
         String requestId = request.getHeader(RequestKey.X_REQUEST_ID);
 
         if (!StringUtils.hasText(requestId)) {
-            requestId = UUID.randomUUID().toString().replace("-", "");
+            requestId = UuidGeneratorUtil.randomUUID();
         }
 
         try {

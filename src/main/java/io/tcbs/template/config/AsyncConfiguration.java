@@ -2,6 +2,7 @@ package io.tcbs.template.config;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
@@ -48,5 +49,26 @@ public class AsyncConfiguration implements AsyncConfigurer {
         executor.setThreadNamePrefix(taskExecutionProperties.getThreadNamePrefix());
         executor.initialize();
         return executor;
+    }
+
+    @Bean(name = "boundedVirtualThreadExecutor")
+    public Executor boundedVirtualThreadExecutor() {
+        log.debug("Creating Bounded VirtualThreadTaskExecutor");
+        Semaphore semaphore = new Semaphore(50);
+        var delegate = Executors.newVirtualThreadPerTaskExecutor();
+        return command -> {
+            try {
+                semaphore.acquire();
+                delegate.execute(() -> {
+                    try {
+                        command.run();
+                    } finally {
+                        semaphore.release();
+                    }
+                });
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        };
     }
 }

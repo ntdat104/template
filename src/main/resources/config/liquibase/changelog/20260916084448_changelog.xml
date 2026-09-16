@@ -1,0 +1,59 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no" ?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+>
+    <changeSet author="tiendat (generated)" id="1789548302267-1">
+        <createTable tableName="outbox_events">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="outbox_eventsPK" />
+            </column>
+            <column name="code" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="request_id" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="aggregate_code" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="aggregate_type" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="topic" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="event_type" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="payload" type="JSONB">
+                <constraints nullable="false" />
+            </column>
+            <column name="status" type="VARCHAR(32)">
+                <constraints nullable="false" />
+            </column>
+            <column name="published_at" type="TIMESTAMP" />
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_date" type="TIMESTAMP" />
+            <column name="last_modified_by" type="VARCHAR(50)" />
+            <column name="last_modified_date" type="TIMESTAMP" />
+        </createTable>
+    </changeSet>
+    <changeSet author="tiendat (generated)" id="1789548302267-2">
+        <addUniqueConstraint columnNames="code" constraintName="UC_OUTBOX_EVENTSCODE_COL" tableName="outbox_events" />
+    </changeSet>
+    <changeSet author="tiendat (generated)" id="1789548302267-3">
+        <createIndex indexName="IDXbsc105gmbj82jxjgnhiqxtswr" tableName="outbox_events">
+            <column name="status" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="tiendat (generated)" id="1789548302267-4">
+        <createIndex indexName="IDXe1i9i5khkuk2tnmgwswd8q34" tableName="outbox_events">
+            <column name="aggregate_code" />
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
